@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Workshop</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at top, rgba(255, 210, 120, .18), transparent 35%),
+        linear-gradient(135deg, #171018, #0d1117 55%, #15100c);
+      overflow-x: hidden;
+    }
+
+    .room {
+      position: relative;
+      min-height: 100vh;
+      padding: 28px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: -1px;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: #c9bfae;
+    }
+
+    .status {
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
+      color: #ffd98a;
+    }
+
+    .workshop {
+      position: relative;
+      min-height: 650px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 28px;
+      background:
+        linear-gradient(to bottom, rgba(255,255,255,.06), transparent 45%),
+        radial-gradient(circle at center, rgba(255,255,255,.06), transparent 45%);
+      box-shadow: 0 30px 80px rgba(0,0,0,.45);
+      overflow: hidden;
+    }
+
+    .floor {
+      position: absolute;
+      inset: 62% 0 0;
+      background: linear-gradient(90deg, #21160f, #342113, #1d1410);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .neon {
+      position: absolute;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: #ffe7ad;
+      text-shadow: 0 0 18px rgba(255, 196, 77, .85);
+    }
+
+    .whiteboard {
+      position: absolute;
+      top: 82px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(540px, 80%);
+      height: 280px;
+      background: linear-gradient(135deg, #f8f5e8, #dce8df);
+      border: 12px solid #2b2b2b;
+      border-radius: 18px;
+      color: #222;
+      box-shadow: 0 0 35px rgba(255,255,255,.15);
+      cursor: pointer;
+      transition: .2s;
+      padding: 22px;
+    }
+
+    .whiteboard:hover, .desk:hover, .cabinet:hover, .project-wall:hover {
+      transform: translateY(-4px) scale(1.01);
+      filter: brightness(1.1);
+    }
+
+    .whiteboard:hover {
+      transform: translateX(-50%) translateY(-4px) scale(1.01);
+    }
+
+    .board-title {
+      font-weight: 800;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    .sticky-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .sticky {
+      width: 120px;
+      min-height: 90px;
+      padding: 10px;
+      background: #ffe66d;
+      color: #161616;
+      transform: rotate(-2deg);
+      box-shadow: 0 8px 16px rgba(0,0,0,.22);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .sticky:nth-child(2) {
+      background: #ff9ecb;
+      transform: rotate(3deg);
+    }
+
+    .sticky:nth-child(3) {
+      background: #9be7ff;
+      transform: rotate(-1deg);
+    }
+
+    .desk {
+      position: absolute;
+      bottom: 75px;
+      width: 300px;
+      height: 180px;
+      background: linear-gradient(135deg, #7a4a28, #3e2416);
+      border-radius: 20px 20px 8px 8px;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 22px 40px rgba(0,0,0,.5);
+      cursor: pointer;
+      transition: .2s;
+      padding: 18px;
+    }
+
+    .desk.dane { left: 70px; }
+    .desk.kas { right: 70px; }
+
+    .desk h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .laptop {
+      width: 110px;
+      height: 70px;
+      background: linear-gradient(135deg, #10151d, #2d3748);
+      border: 4px solid #111;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #79ffcf;
+      font-size: 11px;
+      margin-top: 12px;
+    }
+
+    .pinboard {
+      position: absolute;
+      right: 18px;
+      top: 50px;
+      width: 115px;
+      min-height: 95px;
+      background: #b9824a;
+      border: 5px solid #5a3219;
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 11px;
+      color: #211;
+    }
+
+    .pinboard div {
+      background: #fff2b8;
+      margin-bottom: 6px;
+      padding: 4px;
+      border-radius: 3px;
+    }
+
+    .cabinet {
+      position: absolute;
+      left: 50%;
+      bottom: 60px;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 155px;
+      background: linear-gradient(135deg, #58616f, #252b33);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: .2s;
+      padding: 14px;
+      text-align: center;
+      box-shadow: 0 22px 35px rgba(0,0,0,.5);
+    }
+
+    .drawer {
+      height: 34px;
+      margin: 10px 0;
+      background: rgba(255,255,255,.12);
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.15);
+    }
+
+    .project-wall {
+      position: absolute;
+      top: 120px;
+      left: 38px;
+      width: 190px;
+      min-height: 220px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 18px;
+      padding: 14px;
+      cursor: pointer;
+      transition: .2s;
+      backdrop-filter: blur(10px);
+    }
+
+    .project-wall h3 { margin: 0 0 10px; }
+
+    .project-card {
+      padding: 8px;
+      margin-bottom: 8px;
+      background: rgba(0,0,0,.28);
+      border-radius: 10px;
+      font-size: 13px;
+    }
+
+    .panel {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: min(420px, 92vw);
+      height: 100vh;
+      background: rgba(14, 17, 23, .96);
+      border-left: 1px solid rgba(255,255,255,.14);
+      box-shadow: -20px 0 60px rgba(0,0,0,.5);
+      transition: .25s ease;
+      z-index: 10;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .panel.open { right: 0; }
+
+    .panel h2 { margin-top: 0; }
+
+    .close {
+      float: right;
+      background: #fff;
+      color: #111;
+      border: 0;
+      border-radius: 999px;
+      padding: 7px 11px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .task {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      padding: 12px;
+      margin: 10px 0;
+    }
+
+    .add-note {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    input {
+      flex: 1;
+      padding: 11px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: white;
+    }
+
+    button {
+      padding: 11px 13px;
+      border: 0;
+      border-radius: 10px;
+      background: #ffd166;
+      color: #111;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .desk {
+        width: 240px;
+      }
+      .desk.dane { left: 20px; }
+      .desk.kas { right: 20px; }
+      .project-wall { display: none; }
+    }
+
+    @media (max-width: 700px) {
+      .workshop { min-height: 850px; }
+      .whiteboard {
+        top: 80px;
+        height: 250px;
+      }
+      .desk.dane {
+        left: 20px;
+        bottom: 280px;
+      }
+      .desk.kas {
+        right: 20px;
+        bottom: 85px;
+      }
+      .cabinet {
+        left: 50%;
+        bottom: 445px;
+        width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="room">
+    <header>
+      <div class="brand">
+        <h1>The Workshop</h1>
+        <p>A private creative room for Dane & Kas.</p>
+      </div>
+      <div class="status">Prototype V0.1</div>
+    </header>
+
+    <section class="workshop">
+      <div class="neon">IDEAS BECOME REAL HERE</div>
+      <div class="floor"></div>
+
+      <div class="project-wall" onclick="openPanel('Project Wall', projectWallContent())">
+        <h3>Project Wall</h3>
+        <div class="project-card">DTG Website — Building</div>
+        <div class="project-card">Hot Dabs — Dreaming</div>
+        <div class="project-card">Green Labs Drop Boxes — Planning</div>
+      </div>
+
+      <div class="whiteboard" onclick="openPanel('Shared Whiteboard', whiteboardContent())">
+        <div class="board-title">Shared Whiteboard</div>
+        <div class="sticky-row">
+          <div class="sticky">Film budtender challenge pilot</div>
+          <div class="sticky">Build company homepage</div>
+          <div class="sticky">Ask Bri about photo shoots</div>
+        </div>
+      </div>
+
+      <div class="desk dane" onclick="openPanel('Dane’s Desk', daneContent())">
+        <h2>Dane</h2>
+        <p>Websites, AI, merch, digital systems.</p>
+        <div class="laptop">DTG SITE</div>
+        <div class="pinboard">
+          <div>Website</div>
+          <div>Hot Dabs</div>
+          <div>DTG Merch</div>
+        </div>
+      </div>
+
+      <div class="desk kas" onclick="openPanel('Kas’s Desk', kasContent())">
+        <h2>Kas</h2>
+        <p>Events, people, pitches, content.</p>
+        <div class="laptop">EVENTS</div>
+        <div class="pinboard">
+          <div>Drop Boxes</div>
+          <div>Vendors</div>
+          <div>IG Videos</div>
+        </div>
+      </div>
+
+      <div class="cabinet" onclick="openPanel('File Cabinet', cabinetContent())">
+        <strong>File Cabinet</strong>
+        <div class="drawer"></div>
+        <div class="drawer"></div>
+        <div class="drawer"></div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="panel" id="panel">
+    <button class="close" onclick="closePanel()">X</button>
+    <h2 id="panelTitle"></h2>
+    <div id="panelBody"></div>
+  </aside>
+
+  <script>
+    const panel = document.getElementById("panel");
+    const panelTitle = document.getElementById("panelTitle");
+    const panelBody = document.getElementById("panelBody");
+
+    let notes = JSON.parse(localStorage.getItem("workshopNotes")) || [
+      "Build the first visual prototype",
+      "Show Kas and get her reaction",
+      "Decide if this becomes the private HQ"
+    ];
+
+    function openPanel(title, content) {
+      panelTitle.textContent = title;
+      panelBody.innerHTML = content;
+      panel.classList.add("open");
+    }
+
+    function closePanel() {
+      panel.classList.remove("open");
+    }
+
+    function whiteboardContent() {
+      return `
+        <p>This is the shared brain. Add messy ideas here.</p>
+        <div id="notesList">
+          ${notes.map((n, i) => `<div class="task">📌 ${n} <button onclick="deleteNote(${i})">Delete</button></div>`).join("")}
+        </div>
+        <div class="add-note">
+          <input id="newNote" placeholder="Add a new idea..." />
+          <button onclick="addNote()">Add</button>
+        </div>
+      `;
+    }
+
+    function daneContent() {
+      return `
+        <div class="task">💻 DTG Website — building homepage + Shopify path</div>
+        <div class="task">🔥 Hot Dabs Website — concept page</div>
+        <div class="task">👕 DTG Merch — product drops + apparel layout</div>
+        <div class="task">🤖 AI Budtender — future idea</div>
+      `;
+    }
+
+    function kasContent() {
+      return `
+        <div class="task">📦 Green Labs Drop Boxes — planning visuals</div>
+        <div class="task">🎪 Vendor Events — collect vendor ideas</div>
+        <div class="task">🎥 Instagram Videos — short clips + customer moments</div>
+        <div class="task">🗣️ Client Lists — future outreach</div>
+      `;
+    }
+
+    function cabinetContent() {
+      return `
+        <p>Eventually this becomes real uploads with Supabase.</p>
+        <div class="task">📁 DTG Logos</div>
+        <div class="task">📁 Green Labs Photos</div>
+        <div class="task">📁 Hot Dabs Concepts</div>
+        <div class="task">📁 Event Flyers</div>
+      `;
+    }
+
+    function projectWallContent() {
+      return `
+        <div class="task">🟢 DTG Website — Building</div>
+        <div class="task">🟡 Green Labs Drop Boxes — Planning</div>
+        <div class="task">⚪ Hot Dabs — Dreaming</div>
+        <div class="task">⚪ Cookie Stand — Dreaming</div>
+      `;
+    }
+
+    function addNote() {
+      const input = document.getElementById("newNote");
+      if (!input.value.trim()) return;
+      notes.push(input.value.trim());
+      localStorage.setItem("workshopNotes", JSON.stringify(notes));
+      openPanel("Shared Whiteboard", whiteboardContent());
+    }
+
+    function deleteNote(index) {
+      notes.splice(index, 1);
+      localStorage.setItem("workshopNotes", JSON.stringify(notes));
+      openPanel("Shared Whiteboard", whiteboardContent());
+    }
+  </script>
+</body>
+</html>
