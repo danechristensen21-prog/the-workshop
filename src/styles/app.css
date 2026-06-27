@@ -1,0 +1,85 @@
+.app-shell {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(150, 70, 255, 0.18), transparent 35%),
+    radial-gradient(circle at top right, rgba(255, 170, 60, 0.14), transparent 35%),
+    linear-gradient(135deg, #08080c, #141017 55%, #090b10);
+}
+
+.topbar {
+  height: 86px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 30;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: #c4b5fd;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 34px;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.topbar-actions button,
+.close-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 13px;
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  font-weight: 900;
+}
+
+.side-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(440px, 94vw);
+  height: 100vh;
+  padding: 26px;
+  background: rgba(11, 12, 18, 0.98);
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: -25px 0 80px rgba(0, 0, 0, 0.55);
+  z-index: 50;
+  overflow-y: auto;
+}
+
+.close-button {
+  float: right;
+  background: white;
+  color: #111;
+}
+
+.panel-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.panel-card {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.panel-card small {
+  color: #c4b5fd;
+}
