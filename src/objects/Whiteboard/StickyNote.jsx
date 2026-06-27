@@ -4,11 +4,9 @@ export default function StickyNote({ note, onUpdate, onDelete }) {
   const [isDragging, setIsDragging] = useState(false);
 
   function startDrag(event) {
-    if (event.target.tagName === "TEXTAREA" || event.target.tagName === "BUTTON") {
-      return;
-    }
-
     event.preventDefault();
+    event.stopPropagation();
+
     setIsDragging(true);
 
     const startX = event.clientX;
@@ -39,15 +37,19 @@ export default function StickyNote({ note, onUpdate, onDelete }) {
         isDragging ? "sticky-note--dragging" : ""
       }`}
       style={{ left: note.x, top: note.y }}
-      onPointerDown={startDrag}
+      onClick={(event) => event.stopPropagation()}
     >
-      <button
-        className="sticky-delete"
-        type="button"
-        onClick={() => onDelete(note.id)}
-      >
-        ×
-      </button>
+      <div className="sticky-drag-handle" onPointerDown={startDrag}>
+        <span>{note.owner}</span>
+
+        <button
+          className="sticky-delete"
+          type="button"
+          onClick={() => onDelete(note.id)}
+        >
+          ×
+        </button>
+      </div>
 
       <textarea
         value={note.text}
