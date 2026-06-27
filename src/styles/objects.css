@@ -1,0 +1,251 @@
+.desk-object {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px 18px 6px 6px;
+  background: linear-gradient(135deg, #7a4523, #3f2314);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+
+.desk-screen {
+  position: absolute;
+  left: 10%;
+  top: 14%;
+  width: 42%;
+  height: 42%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border: 5px solid #080a0f;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #101620, #222b38);
+  color: #6effd2;
+}
+
+.desk-screen small {
+  display: block;
+  font-size: 10px;
+}
+
+.desk-task-stack {
+  position: absolute;
+  right: 8%;
+  bottom: 14%;
+  width: 42%;
+  padding: 8px;
+  border-radius: 10px;
+  background: #b7783c;
+  border: 5px solid rgba(63, 32, 14, 0.8);
+}
+
+.desk-task {
+  margin-bottom: 6px;
+  padding: 5px;
+  border-radius: 4px;
+  background: #fff0a8;
+  color: #24180e;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.desk-coffee {
+  position: absolute;
+  left: 18%;
+  bottom: 14%;
+  font-size: 24px;
+}
+
+.window-object {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  border-radius: 14px;
+  background: #7c4a2d;
+}
+
+.window-sky {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #93c5fd, #dbeafe);
+}
+
+.sun {
+  position: absolute;
+  top: 16%;
+  right: 18%;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #fde68a;
+  box-shadow: 0 0 24px #fde68a;
+}
+
+.cloud {
+  position: absolute;
+  width: 48px;
+  height: 18px;
+  background: white;
+  border-radius: 999px;
+  opacity: 0.85;
+}
+
+.cloud-one {
+  top: 42%;
+  left: 10%;
+}
+
+.cloud-two {
+  top: 58%;
+  left: 45%;
+}
+
+.coffee-object,
+.bucky-bed-object,
+.trophy-shelf-object,
+.file-cabinet-object {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(20, 20, 28, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+
+.coffee-cup {
+  font-size: 38px;
+}
+
+.steam {
+  position: absolute;
+  width: 8px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+  animation: steamRise 2.4s infinite ease-in-out;
+}
+
+.steam-one {
+  top: 20%;
+  left: 42%;
+}
+
+.steam-two {
+  top: 18%;
+  left: 54%;
+  animation-delay: 0.7s;
+}
+
+@keyframes steamRise {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-16px);
+    opacity: 0;
+  }
+}
+
+.bucky-bed-object {
+  background: #7c3aed;
+  border-radius: 50%;
+}
+
+.bucky-dog {
+  font-size: 38px;
+}
+
+.lava-object {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.lava-cap,
+.lava-base {
+  position: absolute;
+  left: 24%;
+  width: 52%;
+  height: 12%;
+  border-radius: 999px;
+  background: #334155;
+}
+
+.lava-cap {
+  top: 0;
+}
+
+.lava-base {
+  bottom: 0;
+}
+
+.lava-glass {
+  position: absolute;
+  left: 28%;
+  top: 10%;
+  width: 44%;
+  height: 78%;
+  overflow: hidden;
+  border-radius: 45% 45% 35% 35%;
+  background: linear-gradient(180deg, #fef3c7, #fb7185);
+}
+
+.lava-blob {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #7c2d12;
+  animation: lavaFloat 4s infinite ease-in-out;
+}
+
+.blob-one {
+  left: 22%;
+  bottom: 18%;
+}
+
+.blob-two {
+  right: 18%;
+  top: 28%;
+  animation-delay: 1.4s;
+}
+
+@keyframes lavaFloat {
+  0%,
+  100% {
+    transform: translateY(14px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-22px) scale(1.18);
+  }
+}
+
+.trophy-shelf-object {
+  grid-template-columns: repeat(2, 1fr);
+  font-size: 26px;
+  background: linear-gradient(135deg, #5b3a1e, #2f1d11);
+}
+
+.file-cabinet-object {
+  gap: 8px;
+  padding: 14px;
+  background: linear-gradient(135deg, #596472, #252b35);
+}
+
+.file-cabinet-object div {
+  width: 80%;
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.14);
+}
