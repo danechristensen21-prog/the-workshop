@@ -9,6 +9,7 @@ import BuckyBed from "../objects/Decor/BuckyBed";
 import LavaLamp from "../objects/Decor/LavaLamp";
 import TrophyShelf from "../objects/Decor/TrophyShelf";
 import FileCabinet from "../objects/Decor/FileCabinet";
+import Calendar from "../objects/Decor/Calendar";
 
 const objectComponents = {
   Whiteboard,
@@ -19,6 +20,7 @@ const objectComponents = {
   LavaLamp,
   TrophyShelf,
   FileCabinet,
+  Calendar,
 };
 
 export default function WorkshopRoom() {
