@@ -58,6 +58,25 @@ export const initialWorkshopData = {
     },
   ],
 
+  calendar: {
+  events: [
+    {
+      id: "event-1",
+      title: "Workshop Build Night",
+      date: "2026-06-27",
+      time: "7:00 PM",
+      owner: "Shared",
+    },
+    {
+      id: "event-2",
+      title: "Content Planning",
+      date: "2026-06-29",
+      time: "11:00 AM",
+      owner: "Dane",
+    },
+  ],
+},
+
   tasks: [
     {
       id: "task-1",
