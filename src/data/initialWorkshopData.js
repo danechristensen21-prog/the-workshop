@@ -1,8 +1,10 @@
 export const initialWorkshopData = {
   activePanel: null,
   activeObjectId: null,
+  whiteboardFocused: false,
 
   whiteboard: {
+    drawing: null,
     notes: [
       {
         id: "note-1",
@@ -20,13 +22,59 @@ export const initialWorkshopData = {
         x: 220,
         y: 82,
       },
+    ],
+  },
+
+  calendar: {
+    sources: [
       {
-        id: "note-3",
-        text: "Build the room like a game, not a dashboard.",
-        owner: "Kas",
-        color: "pink",
-        x: 120,
-        y: 190,
+        id: "workshop-main",
+        name: "Workshop",
+        type: "local",
+        connected: true,
+      },
+      {
+        id: "google-dane",
+        name: "Dane Google Calendar",
+        type: "google",
+        connected: false,
+      },
+      {
+        id: "google-kas",
+        name: "Kas Google Calendar",
+        type: "google",
+        connected: false,
+      },
+    ],
+
+    events: [
+      {
+        id: "event-1",
+        source: "workshop",
+        calendarId: "workshop-main",
+        externalId: null,
+        syncStatus: "local",
+        title: "Workshop Build Night",
+        date: "2026-06-29",
+        time: "7:00 PM",
+        owner: "Shared",
+        color: "yellow",
+        location: "The Workshop",
+        details: "Build the calendar system and keep it Google-ready.",
+      },
+      {
+        id: "event-2",
+        source: "workshop",
+        calendarId: "workshop-main",
+        externalId: null,
+        syncStatus: "local",
+        title: "Content Planning",
+        date: "2026-06-30",
+        time: "11:00 AM",
+        owner: "Dane",
+        color: "blue",
+        location: "",
+        details: "Hot Dabs, DTG media, and local brand ideas.",
       },
     ],
   },
@@ -40,42 +88,7 @@ export const initialWorkshopData = {
       type: "Software",
       momentum: 12,
     },
-    {
-      id: "project-2",
-      title: "Hot Dabs",
-      status: "Dreaming",
-      owner: "Dane",
-      type: "Media",
-      momentum: 4,
-    },
-    {
-      id: "project-3",
-      title: "Event System",
-      status: "Planning",
-      owner: "Kas",
-      type: "Events",
-      momentum: 6,
-    },
   ],
-
-  calendar: {
-  events: [
-    {
-      id: "event-1",
-      title: "Workshop Build Night",
-      date: "2026-06-27",
-      time: "7:00 PM",
-      owner: "Shared",
-    },
-    {
-      id: "event-2",
-      title: "Content Planning",
-      date: "2026-06-29",
-      time: "11:00 AM",
-      owner: "Dane",
-    },
-  ],
-},
 
   tasks: [
     {
@@ -87,13 +100,6 @@ export const initialWorkshopData = {
     },
     {
       id: "task-2",
-      owner: "Dane",
-      text: "Make whiteboard interactive",
-      done: false,
-      tag: "Whiteboard",
-    },
-    {
-      id: "task-3",
       owner: "Kas",
       text: "Brainstorm first event room objects",
       done: false,
