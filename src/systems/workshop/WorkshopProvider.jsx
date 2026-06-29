@@ -32,6 +32,13 @@ export function WorkshopProvider({ children }) {
     setWorkshop(initialWorkshopData);
   }
 
+  function setWhiteboardFocus(isFocused) {
+    setWorkshop((current) => ({
+      ...current,
+      whiteboardFocused: isFocused,
+    }));
+  }
+
   function addSticky(color = "yellow") {
     const note = {
       id: crypto.randomUUID(),
@@ -52,6 +59,33 @@ export function WorkshopProvider({ children }) {
   }
 
   function updateSticky(noteId, updates) {
+    if (updates.duplicate) {
+      setWorkshop((current) => {
+        const originalNote = current.whiteboard.notes.find(
+          (note) => note.id === noteId
+        );
+
+        if (!originalNote) return current;
+
+        const duplicatedNote = {
+          ...originalNote,
+          id: crypto.randomUUID(),
+          x: originalNote.x + 24,
+          y: originalNote.y + 24,
+        };
+
+        return {
+          ...current,
+          whiteboard: {
+            ...current.whiteboard,
+            notes: [...current.whiteboard.notes, duplicatedNote],
+          },
+        };
+      });
+
+      return;
+    }
+
     setWorkshop((current) => ({
       ...current,
       whiteboard: {
@@ -73,6 +107,58 @@ export function WorkshopProvider({ children }) {
     }));
   }
 
+  function clearWhiteboard() {
+    const confirmed = confirm("Clear all sticky notes from the whiteboard?");
+    if (!confirmed) return;
+
+    setWorkshop((current) => ({
+      ...current,
+      whiteboard: {
+        ...current.whiteboard,
+        notes: [],
+      },
+    }));
+  }
+
+  function updateWhiteboardDrawing(drawingData) {
+    setWorkshop((current) => ({
+      ...current,
+      whiteboard: {
+        ...current.whiteboard,
+        drawing: drawingData,
+      },
+    }));
+  }
+
+  function addCalendarEvent(eventData) {
+    const newEvent = {
+      id: crypto.randomUUID(),
+      source: "workshop",
+      calendarId: "workshop-main",
+      externalId: null,
+      syncStatus: "local",
+      ...eventData,
+    };
+
+    setWorkshop((current) => ({
+      ...current,
+      calendar: {
+        ...current.calendar,
+        events: [...(current.calendar?.events || []), newEvent],
+      },
+    }));
+  }
+
+  function deleteCalendarEvent(eventId) {
+    setWorkshop((current) => ({
+      ...current,
+      calendar: {
+        ...current.calendar,
+        events: current.calendar.events.filter((event) => event.id !== eventId),
+      },
+    }));
+  }
+
   function toggleTask(taskId) {
     setWorkshop((current) => ({
       ...current,
@@ -89,9 +175,14 @@ export function WorkshopProvider({ children }) {
         openPanel,
         closePanel,
         resetWorkshop,
+        setWhiteboardFocus,
         addSticky,
         updateSticky,
         deleteSticky,
+        clearWhiteboard,
+        updateWhiteboardDrawing,
+        addCalendarEvent,
+        deleteCalendarEvent,
         toggleTask,
       }}
     >
