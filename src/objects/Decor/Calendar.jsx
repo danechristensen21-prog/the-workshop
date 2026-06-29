@@ -4,12 +4,15 @@ export default function Calendar() {
   const { workshop } = useWorkshop();
 
   const events = workshop.calendar?.events || [];
+  const upcomingEvents = [...events]
+    .sort((a, b) => `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`))
+    .slice(0, 3);
 
   return (
     <div className="calendar-object">
       <div className="calendar-header">
         <strong>Calendar</strong>
-        <span>Jun</span>
+        <span>{events.length} items</span>
       </div>
 
       <div className="calendar-grid">
@@ -21,9 +24,13 @@ export default function Calendar() {
       </div>
 
       <div className="calendar-events">
-        {events.slice(0, 2).map((event) => (
-          <div className="calendar-event" key={event.id}>
-            {event.title}
+        {upcomingEvents.map((event) => (
+          <div
+            className={`calendar-event calendar-event--${event.color}`}
+            key={event.id}
+          >
+            <strong>{event.title}</strong>
+            <small>{event.date}</small>
           </div>
         ))}
       </div>
